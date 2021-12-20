@@ -1,5 +1,7 @@
 package screen
 
+import extensions.getNotEmptyString
+
 /*
 Step 1. 장바구니에 추가한 상품 관리
 Step 2. 사용자 입력값 요청 처리 공통화
@@ -14,11 +16,7 @@ class ShoppingCategory {
         }
         println("=> 장바구니로 이동하시려면 #을 입력해주세요")
 
-        var selectedCategory = readLine()
-        while (selectedCategory.isNullOrBlank()) {
-            println("값을 입력해주세요")
-            selectedCategory = readLine()
-        }
+        val selectedCategory = readLine().getNotEmptyString()
         if (selectedCategory == "#") {
             val shoppingCart = ShoppingCart()
             shoppingCart.showCartItems()
