@@ -6,7 +6,7 @@ import data.Product
 import extensions.getNotEmptyInt
 import extensions.getNotEmptyString
 
-class ShoppingProductList : Screen() {
+class ShoppingProductList(private val selectedCategory: String) : Screen() {
     private val products = arrayOf(
         Product("패션", "겨울 패딩"),
         Product("패션", "겨울 바지"),
@@ -22,7 +22,7 @@ class ShoppingProductList : Screen() {
         product.categoryLabel
     }
 
-    fun showProducts(selectedCategory: String) {
+    fun showProducts() {
         ScreenStack.push(this)
         val categoryProducts = categories[selectedCategory]
         if (!categoryProducts.isNullOrEmpty()) {
@@ -35,13 +35,13 @@ class ShoppingProductList : Screen() {
             categoryProducts.forEachIndexed { index, product ->
                 println("${index}. ${product.name}")
             }
-            showCartOption(categoryProducts, selectedCategory)
+            showCartOption(categoryProducts)
         } else {
             showEmptyProductMessage(selectedCategory)
         }
     }
 
-    private fun showCartOption(categoryProducts: List<Product>, selectedCategory: String) {
+    private fun showCartOption(categoryProducts: List<Product>) {
         println(
             """
             $LINE_DIVIDER
@@ -58,10 +58,13 @@ class ShoppingProductList : Screen() {
                 val shoppingCart = ShoppingCart()
                 shoppingCart.showCartItems()
             } else if (answer == "*") {
-                showProducts(selectedCategory)
+                showProducts()
             } else {
                 // TODO 그 외 값을 입력한 경우에 대한 처리
             }
+        } ?: kotlin.run {
+            println("$selectedIndex 번은 목록에 없는 상품 번호 입니다. 다시 입력해주세요.")
+            showProducts()
         }
     }
 

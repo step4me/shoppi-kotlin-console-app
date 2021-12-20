@@ -3,10 +3,6 @@ package screen
 import LINE_DIVIDER
 import extensions.getNotEmptyString
 
-/*
-Step 1. 화면 이동을 관리하는 Stack
-Step 2. 장바구니 이전화면 이동 구현
- */
 class ShoppingHome : Screen() {
 
     fun start() {
